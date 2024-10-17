@@ -37,7 +37,7 @@ export default function UsersPage() {
         {users.map((user) => (
           <li key={user._id} className="p-4 bg-white rounded-lg shadow-md">
             <h2 className="text-lg font-semibold">{user.firstName} {user.lastName}</h2>
-            <p>Email: {user.email}</p>
+            <p>Email: {user.email} </p>
             <p>Phone: {user.phone}</p>
             <p>Message: {user.message}</p>
           </li>
