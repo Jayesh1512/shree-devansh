@@ -15,8 +15,8 @@ const ContactUs = () => {
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
 
-    if (name === 'phoneNo' && value.length > 10) {
-      return;
+    if (name === 'phoneNo' && (value.length > 10 || !/^\d*$/.test(value))) {
+      return; // Ensures only digits and max 10 characters for phoneNo
     }
 
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -52,10 +52,6 @@ const ContactUs = () => {
     }
     if (phoneNo.length !== 10) {
       toast.error('Phone number must be exactly 10 digits.');
-      return false;
-    }
-    if (!/^\d+$/.test(phoneNo)) {
-      toast.error('Phone number should contain only digits.');
       return false;
     }
     if (!message) {
@@ -110,16 +106,14 @@ const ContactUs = () => {
           {/* Left Side - Location/Details */}
           <div className="location-info text-gray-600 text-base leading-relaxed md:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">Our Office</h2>
-            <p>1234 Business Avenue, Suite 100</p>
-            <p>New York, NY 10001</p>
-            <p className="mt-2">Phone: (123) 456-7890</p>
-            <p>Email: contact@yourcompany.com</p>
+            <p>Jain bhawan, Gandhibagh, </p>
+            <p>Nagpur, Maharashtra 440002</p>
+            <p className="mt-2">Phone: 07770016366</p>
 
             {/* Google Maps Iframe */}
             <div className="mt-6">
               <iframe
-                title="company-location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.997585772669!2d-74.00597228459883!3d40.71277597933025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316ad02e51%3A0x9b048b2b9a3a8db7!2s1234%20Business%20Ave%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1627556814530!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.984556342039!2d79.10280317437199!3d21.1530128805276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c1804bf9e6bd%3A0x3e5bc8b92de01890!2sShree%20Devansh%20Copper%20Products!5e0!3m2!1sen!2sin!4v1729185476476!5m2!1sen!2sin"
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
@@ -178,7 +172,7 @@ const ContactUs = () => {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="phone-no" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="phoneNo" className="block text-sm font-medium text-gray-700 mb-2">
                 Phone No<span className="text-red-500">*</span>
               </label>
               <input
@@ -208,7 +202,7 @@ const ContactUs = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-[#f4f0ea] text-gray-800 font-semibold rounded-md py-2 px-4 shadow-md hover:bg-gray-800 hover:text-white transition duration-200 ease-in-out transform"
+                className="bg-gray-800 text-white font-semibold rounded-md py-2 px-4 shadow-md hover:bg-gray-700 transition duration-200 ease-in-out transform"
               >
                 Send Message
               </button>
