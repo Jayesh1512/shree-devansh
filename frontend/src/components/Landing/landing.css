@@ -1,0 +1,28 @@
+@keyframes countUp {
+    0% {
+      content: '0';
+    }
+    100% {
+      content: attr(data-count);
+    }
+  }
+  
+  .number {
+    animation: countUp 2s ease-in-out forwards;
+  }
+  
+  .number-40::before,
+  .number-50::before {
+    content: '0';
+    display: inline-block;
+    animation: countUp 2s ease-in-out forwards;
+  }
+  
+  .number-40::before {
+    counter-reset: count40 0;
+  }
+  
+  .number-50::before {
+    counter-reset: count50 0;
+  }
+  

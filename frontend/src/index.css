@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    --black: #04152d;
+    --black2: #041226;
+    --black3: #020c1b;
+    --black-lighter: #1c4b91;
+    --black-light: #173d77;
+    --pink: #da2f68;
+    --orange: #f89e00;
+    --gradient: linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Source Sans 3", sans-serif;
+
+}
+
+.sourceSans{
+    font-family: "Source Sans 3", sans-serif;
+
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.landingHeader {
+    font-family: "Inter", sans-serif;
+}
+
+
+.landing-anim {
+    background-image: url('/img/Landing/landing1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: landing-background 90s linear infinite;
+}
+
+
+@media screen and (max-width: 768px) {
+    .landing-anim{
+        background-image: url('/img/Landing/landing_small.png');
+        background-size: cover;
+    }
+}
+
+@keyframes landing-background {
+    0% {
+        background-position: left;
+    }
+
+    50% {
+        background-position: right;
+    }
+
+    100% {
+        background-position: left;
+    }
+}
+
+
