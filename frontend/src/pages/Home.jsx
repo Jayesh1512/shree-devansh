@@ -4,12 +4,14 @@
   import Idea from '../components/Newsletter/Newsletter'
   import Marquee from '../components/InfiCarousal/InfiniteMarquee'
   import Landing_small from '../components/Landing/Landing_small'
+import CopperAdvantages from '../components/Advantages/Advantage'
   const Home = () => {
     return (
       <div>
         <Landing_small/>
         <Landing1 />
         <About />
+        <CopperAdvantages />
         <Category />
         <Marquee />
         <Idea />
