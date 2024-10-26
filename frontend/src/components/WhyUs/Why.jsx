@@ -2,10 +2,10 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { FaAward, FaStar, FaCog, FaMoneyBillWave, FaEnvelope } from 'react-icons/fa'
 import { SiFlipkart, SiAmazon } from 'react-icons/si'
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export default function BusinessHighlights() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const highlights = [
     { icon: FaAward, text: '40+ years of experience in the industry' },
     { icon: FaStar, text: 'Exceptional Service & Quality' },
@@ -35,6 +35,28 @@ export default function BusinessHighlights() {
     },
   }
 
+  const floatVariants = {
+    float: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
+
+  const pulseVariants = {
+    pulse: {
+      scale: [1, 1.05, 1],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
+
   return (
     <div className="bg-[#f4f0ea] py-16 px-4 sm:px-6 lg:px-8">
       <motion.div
@@ -56,6 +78,8 @@ export default function BusinessHighlights() {
               key={index}
               className=" rounded-lg shadow-lg p-6 flex items-center space-x-4 transform hover:scale-105 transition-transform duration-300"
               variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <highlight.icon className="text-4xl text-blue-600" />
               <p className="text-xl text-gray-700">{highlight.text}</p>
@@ -64,39 +88,43 @@ export default function BusinessHighlights() {
         </div>
 
         <motion.div
-          className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-y-0 sm:space-x-12 mb-12"
+          className="flex flex-row justify-center items-center space-y-6 sm:space-y-0 space-x-12 mb-12"
           variants={itemVariants}
         >
-          <a
+          <motion.a
             href="https://www.flipkart.com"
             target="_blank"
             rel="noopener noreferrer"
             className="transform hover:scale-110 transition-transform duration-300"
+            variants={floatVariants}
+            animate="float"
           >
             <SiFlipkart className="text-6xl text-yellow-500" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             href="https://www.amazon.in/l/27943762031?ie=UTF8&marketplaceID=A21TJRUUN4KGV&me=A2GP2T5FXD1LNX"
             target="_blank"
             rel="noopener noreferrer"
             className="transform hover:scale-110 transition-transform duration-300"
+            variants={floatVariants}
+            animate="float"
           >
             <SiAmazon className="text-6xl text-black" />
-          </a>
+          </motion.a>
         </motion.div>
 
-        <motion.div
-          className="text-center"
-          variants={itemVariants}
-        >
-          <button
-            
+        <motion.div className="text-center" variants={itemVariants}>
+          <motion.button
             className="inline-flex items-center space-x-2 bg-[#411900] text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-[#411900ed] transition-colors duration-300"
-            onClick={()=>navigate("/contact-us")}
+            onClick={() => navigate("/contact-us")}
+            variants={pulseVariants}
+            animate="pulse"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <FaEnvelope />
+            <FaEnvelope className='md:block hidden'  />
             <span>Contact us for Bulk & Bespoke solutions</span>
-          </button>
+          </motion.button>
         </motion.div>
       </motion.div>
     </div>
