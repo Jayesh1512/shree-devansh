@@ -41,7 +41,6 @@ export async function POST(req) {
     const cookieStore = cookies();
     cookieStore.set('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Only set the secure flag in production
       maxAge: 60 * 60, // 1 hour
       path: '/',
     });

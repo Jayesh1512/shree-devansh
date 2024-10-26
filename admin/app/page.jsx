@@ -1,7 +1,7 @@
 "use client";
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +20,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Search, MessageSquare, LogOut } from 'lucide-react';
+import { Search, MessageSquare, LogOut, Menu, X, Send } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import {
   Select,
@@ -37,6 +37,9 @@ export default function AdminPanel() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [logoutLoading, setLogoutLoading] = useState(false);
+  const [logoutError, setLogoutError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const requestsPerPage = 10;
   const router = useRouter();
 
@@ -90,43 +93,70 @@ export default function AdminPanel() {
     router.push(`/admin/request/details?${queryParams}`);
   };
 
-  // Logout function
   const logout = async () => {
+    setLogoutLoading(true);
+    setLogoutError(null);
+    
     try {
-      // Make a request to your logout API endpoint
-      const res = await fetch('/api/logout', { method: 'POST' });
-      if (!res.ok) throw new Error('Failed to logout');
-
-      // Redirect to the login page after successful logout
+      const response = await fetch('/api/auth/logout', { method: 'POST' });
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
       router.push('/login');
     } catch (err) {
       console.error(err);
-      // Optionally handle error feedback to the user
+      setLogoutError(err.message);
+    } finally {
+      setLogoutLoading(false);
     }
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Mobile sidebar toggle button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed top-4 left-4 z-50 md:hidden"
+        onClick={toggleSidebar}
+      >
+        {isSidebarOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+      </Button>
+
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md hidden md:block">
+      <aside className={`w-64 bg-white shadow-md fixed inset-y-0 left-0 z-40 transition-transform duration-300 ease-in-out transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
         <div className="p-4">
           <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
         </div>
         <nav className="mt-6">
-          <a href="#" className="flex items-center px-4 py-2 text-gray-700 bg-gray-100">
+          <Link href="#" className="flex items-center px-4 py-2 text-gray-700 bg-gray-100">
             <MessageSquare className="w-5 h-5 mr-2" />
             User Requests
-          </a>
+          </Link>
+          <Link href="/admin/newsletter" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+            <Send className="w-5 h-5 mr-2" />
+            Send Newsletter
+          </Link>
         </nav>
         <div className="absolute bottom-0 w-64 p-4">
-          <Button variant="outline" className="w-full flex items-center justify-center" onClick={logout}>
-            <LogOut className="w-4 h-4 mr-2" /> Logout
+          <Button
+            variant="outline"
+            className="w-full flex items-center justify-center"
+            onClick={logout}
+            disabled={logoutLoading}
+          >
+            {logoutLoading ? "Logging out..." : <><LogOut className="w-4 h-4 mr-2" /> Logout</>}
           </Button>
         </div>
+        {logoutError && <p className="text-red-500 text-center">{logoutError}</p>}
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto md:ml-64">
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-3xl font-bold text-gray-800">User Requests</h2>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -164,38 +194,40 @@ export default function AdminPanel() {
           <p className="text-red-500">Error: {error}</p>
         ) : (
           <>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>User</TableHead>
-                  <TableHead>Subject</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {currentRequests.map((request) => (
-                  <TableRow key={request._id}>
-                    <TableCell className="font-medium">{request._id?.slice(-6)}</TableCell>
-                    <TableCell>{request.firstName} {request.lastName}</TableCell>
-                    <TableCell className="max-w-xs truncate">{request.subject}</TableCell>
-                    <TableCell>{getStatusBadge(request.status)}</TableCell>
-                    <TableCell>{new Date(request.date).toLocaleDateString()}</TableCell>
-                    <TableCell>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleViewRequest(request)}
-                      >
-                        View
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Subject</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {currentRequests.map((request) => (
+                    <TableRow key={request._id}>
+                      <TableCell className="font-medium">{request._id?.slice(-6)}</TableCell>
+                      <TableCell>{request.firstName} {request.lastName}</TableCell>
+                      <TableCell className="max-w-xs truncate">{request.subject}</TableCell>
+                      <TableCell>{getStatusBadge(request.status)}</TableCell>
+                      <TableCell>{new Date(request.date).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleViewRequest(request)}
+                        >
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
 
             <Pagination className="mt-6">
               <PaginationContent>
