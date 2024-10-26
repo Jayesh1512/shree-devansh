@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   Pagination,
   PaginationContent,
@@ -19,96 +19,96 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Search, MessageSquare, LogOut } from 'lucide-react'
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/pagination";
+import { Search, MessageSquare, LogOut } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 export default function AdminPanel() {
-  const [requests, setRequests] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [statusFilter, setStatusFilter] = useState('all')
-  const requestsPerPage = 10
-  const router = useRouter()
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const requestsPerPage = 10;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch('/api/getUsers')
-        if (!res.ok) throw new Error('Failed to fetch user requests')
+        const res = await fetch('/api/getUsers');
+        if (!res.ok) throw new Error('Failed to fetch user requests');
 
-        const data = await res.json()
-        if (!Array.isArray(data)) throw new Error('Unexpected data format')
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('Unexpected data format');
 
-        setRequests(data)
+        setRequests(data);
       } catch (err) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchRequests()
-  }, [])
+    };
+    fetchRequests();
+  }, []);
 
   const filteredRequests = requests.filter(request =>
     (statusFilter === 'all' || request.status === statusFilter) &&
     Object.values(request).some(value =>
       value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
-  )
+  );
 
-  const indexOfLastRequest = currentPage * requestsPerPage
-  const indexOfFirstRequest = indexOfLastRequest - requestsPerPage
-  const currentRequests = filteredRequests.slice(indexOfFirstRequest, indexOfLastRequest)
+  const indexOfLastRequest = currentPage * requestsPerPage;
+  const indexOfFirstRequest = indexOfLastRequest - requestsPerPage;
+  const currentRequests = filteredRequests.slice(indexOfFirstRequest, indexOfLastRequest);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getStatusBadge = (status) => {
     switch (status) {
       case 'pending':
-        return <Badge variant="outline" className="bg-yellow-100 text-yellow-800">Pending</Badge>
+        return <Badge variant="outline" className="bg-yellow-100 text-yellow-800">Pending</Badge>;
       case 'in-progress':
-        return <Badge variant="outline" className="bg-blue-100 text-blue-800">In Progress</Badge>
+        return <Badge variant="outline" className="bg-blue-100 text-blue-800">In Progress</Badge>;
       case 'resolved':
-        return <Badge variant="outline" className="bg-green-100 text-green-800">Resolved</Badge>
+        return <Badge variant="outline" className="bg-green-100 text-green-800">Resolved</Badge>;
       default:
-        return <Badge variant="outline">{status}</Badge>
+        return <Badge variant="outline">{status}</Badge>;
     }
-  }
+  };
 
   const handleViewRequest = (request) => {
-    const queryParams = new URLSearchParams(request).toString()
-    router.push(`/admin/request/details?${queryParams}`)
-  }
+    const queryParams = new URLSearchParams(request).toString();
+    router.push(`/admin/request/details?${queryParams}`);
+  };
 
   // Logout function
   const logout = async () => {
     try {
       // Make a request to your logout API endpoint
-      const res = await fetch('/api/logout', { method: 'POST' })
-      if (!res.ok) throw new Error('Failed to logout')
+      const res = await fetch('/api/logout', { method: 'POST' });
+      if (!res.ok) throw new Error('Failed to logout');
 
       // Redirect to the login page after successful logout
-      router.push('/login')
+      router.push('/login');
     } catch (err) {
-      console.error(err)
+      console.error(err);
       // Optionally handle error feedback to the user
     }
-  }
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md">
+      <aside className="w-64 bg-white shadow-md hidden md:block">
         <div className="p-4">
           <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
         </div>
@@ -126,7 +126,7 @@ export default function AdminPanel() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 overflow-y-auto">
+      <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-3xl font-bold text-gray-800">User Requests</h2>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -140,12 +140,12 @@ export default function AdminPanel() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]">
+            <Select value={statusFilter} onValueChange={setStatusFilter} className="w-full sm:w-48">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="in-progress">In Progress</SelectItem>
                 <SelectItem value="resolved">Resolved</SelectItem>
@@ -218,5 +218,5 @@ export default function AdminPanel() {
         )}
       </main>
     </div>
-  )
+  );
 }
