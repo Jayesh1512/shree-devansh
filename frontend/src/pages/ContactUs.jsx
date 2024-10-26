@@ -88,7 +88,7 @@ const ContactUs = () => {
           toast.error(errorData.msg || 'An error occurred. Please try again.');
         }
       } catch (error) {
-        toast.error('Server Error. Please try again later.');
+        toast.error('Server Error. Please try again later.', error);
       }
     }
   };
@@ -135,7 +135,7 @@ const ContactUs = () => {
                 <input
                   type="text"
                   name="firstName"
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
+                  className="w-full border text-black border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
                   placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleChange}
@@ -149,7 +149,7 @@ const ContactUs = () => {
                 <input
                   type="text"
                   name="lastName"
-                  className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
+                  className="w-full border text-black border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleChange}
@@ -164,7 +164,7 @@ const ContactUs = () => {
               <input
                 type="email"
                 name="email"
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
+                className="w-full border border-gray-300 text-black rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
@@ -172,13 +172,13 @@ const ContactUs = () => {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="phoneNo" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="phoneNo" className="block  text-sm font-medium text-gray-700 mb-2">
                 Phone No<span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
                 name="phoneNo"
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
+                className="w-full border text-black border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
                 placeholder="Enter your phone number"
                 value={formData.phoneNo}
                 onChange={handleChange}
@@ -191,7 +191,7 @@ const ContactUs = () => {
               </label>
               <textarea
                 name="message"
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
+                className="w-full text-black border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out transform"
                 rows="4"
                 placeholder="Write your message"
                 value={formData.message}
