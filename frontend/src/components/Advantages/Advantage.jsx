@@ -11,7 +11,6 @@ const CopperAdvantagesCarousel = () => {
             description: "Copper kills harmful bacteria, making it ideal for safe food handling.",
             icon: <FaShieldAlt />
         },
-
         {
             header: "Aids in Digestion",
             description: "Copper promotes healthy digestion by killing harmful microorganisms.",
@@ -32,7 +31,6 @@ const CopperAdvantagesCarousel = () => {
             description: "Copper regulates blood pressure, heart rate, and cholesterol.",
             icon: <FaHeartbeat />
         },
-
         {
             header: "Eco-Friendly",
             description: "Copper is 100% recyclable and sustainable.",
@@ -55,14 +53,19 @@ const CopperAdvantagesCarousel = () => {
         autoplay: true, // Automatically scroll
         autoplaySpeed: 2000, // Speed of autoplay
         draggable: true, // Enable dragging
+        arrows: true, // Enable arrows (default)
         responsive: [ // Responsiveness for different screen sizes
             {
                 breakpoint: 1024,
-                settings: { slidesToShow: 2 }
+                settings: { slidesToShow: 2, arrows: true, dots: true }
+            },
+            {
+                breakpoint: 768,
+                settings: { slidesToShow: 1, arrows: true, dots: true }
             },
             {
                 breakpoint: 600,
-                settings: { slidesToShow: 1 }
+                settings: { slidesToShow: 1, arrows: false, dots: false } // Disable arrows and dots on mobile view
             }
         ]
     };
@@ -75,7 +78,7 @@ const CopperAdvantagesCarousel = () => {
                     <div key={index} className="p-8">
                         <div
                             className="glass-effect p-6 rounded-xl shadow-lg relative bg-[#271212]"
-                            style={{ backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)', }}
+                            style={{ backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }}
                         >
                             <div className="w-16 h-16 rounded-full mx-auto bg-gradient-to-r from-brown-600 to-brown-400 flex items-center justify-center text-cream-100 text-3xl mb-4 shadow-md">
                                 {advantage.icon}
