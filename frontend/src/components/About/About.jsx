@@ -5,7 +5,7 @@ const About = () => {
   const { scrollYProgress } = useScroll(); // Track scroll progress
 
   // Transform top position from 50% to 0% based on scroll progress
-  const topPosition = useTransform(scrollYProgress, [0, 1], ["85%", "-25%"]);
+  const topPosition = useTransform(scrollYProgress, [0, 1], ["85%", "-85%"]);
 
   return (
     <Element name = "about">

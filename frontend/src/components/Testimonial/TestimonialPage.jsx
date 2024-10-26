@@ -104,10 +104,10 @@ const TestimonialPage = () => {
   };
 
   return (
-    <div className="text-white w-full landingHeader page2 rounded-3xl relative overflow-hidden">
+    <div className="text-white landingHeader w-full landingHeader page2 rounded-3xl relative overflow-hidden">
       <div className="w-full py-16 lg:px-16 px-8 backdrop-brightness-50 ">
         <div className="w-full h-full flex items-center lg:text-left text-center flex-col lg:text-5xl text-4xl">
-          <p className="font-semibold text-5xl">Testimonial That</p>
+          <p className="font-semibold text-5xl">Testimonial <br className="block md:hidden" /> <span className="md:text-5xl text-3xl"> That </span></p>
           <p className="font-medium text-3xl">
             Speak To <span className="text-orange-400">Our Result</span>
           </p>

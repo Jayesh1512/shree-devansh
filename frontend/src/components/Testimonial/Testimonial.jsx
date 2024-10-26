@@ -1,13 +1,17 @@
 import star from "/testimonial/stars.svg";
 import quote from "/testimonial/quote-down.svg";
+import { IoCompassOutline } from "react-icons/io5";
+
 const Testimonial = ({ name, position, review, imageUrl }) => {
   return (
     <div className="backdrop-blur-xl pl-5 pr-5 w-full">
       <div className="flex h-1/4 overflow-hidden bg-white/15 w-full relative rounded-2xl">
+
         <img src={quote.src} alt="" className="absolute right-0 lg:h-32 h-16 mr-2 mt-2 lg:mt-0 lg:mr-2 opacity-40" />
         <div className="px-6 py-6">
           <div className="flex flex-col gap-3 items-start">
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-center">
+              <IoCompassOutline className="text-5xl" />
               <div>
                 <h3 className="text-xl font-bold ">{name}</h3>
                 <p className="text-white ">{position}</p>
