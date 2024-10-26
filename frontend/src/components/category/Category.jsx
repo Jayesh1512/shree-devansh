@@ -3,33 +3,35 @@ import CategoryItem from './CategoryItem';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Category = () => {
+    
     const categories = [
         {
-            title: "Matka with Tap",
-            description: "Sustainable water storage solution",
-            image: "/img/products/matka_tap.jpg",
+            title: "Copper Kalash & Matkas",
+            description: "Traditional copper storage for purity and health.",
+            image: "/img/products/Matkas.jpg",
         },
         {
-            title: "Ceramic Flower Vase",
-            description: "Hand-painted home decor",
-            image: "/img/products/bottle2.jpg",
+            title: "Drinkware Bottles",
+            description: "Stylish, eco-friendly copper water bottles.",
+            image: "/img/products/drinkwareBottle.jpg",
         },
         {
-            title: "Wooden Spice Box",
-            description: "Rustic kitchen organization",
-            image: "/img/products/bottle1.jpg",
+            title: "Copper Gifting",
+            description: "Unique, handcrafted copper gifts for any occasion.",
+            image: "/img/products/copperGifting.jpg",
         },
         {
-            title: "Bamboo Fruit Basket",
-            description: "Eco-friendly fruit storage",
-            image: "/img/products/pot1.jpg",
+            title: "Kitchenware Collection",
+            description: "Essential, durable copperware for everyday use.",
+            image: "/img/products/kitchenwareCollection.jpg",
         },
         {
-            title: "Decorative Pot",
-            description: "Elegant home accessory",
-            image: "/img/products/pot2.jpg",
+            title: "Decor & Utility Collection",
+            description: "Elegant copper decor for a refined touch.",
+            image: "/img/products/decor.jpg",
         },
     ];
+    
 
     const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -65,7 +67,7 @@ const Category = () => {
             {/* Mobile View */}
             <section className="block sm:hidden bg-[#f4f0ea] py-8 px-4">
                 <h1 className="text-center text-3xl font-bold text-gray-800 mb-6">Our Categories</h1>
-                <div className="flex flex-col gap-y-36">
+                <div className="flex flex-col gap-y-20">
                     {categories.map((category, index) => (
                         <CategoryItem key={index} {...category} index={index} />
                     ))}
