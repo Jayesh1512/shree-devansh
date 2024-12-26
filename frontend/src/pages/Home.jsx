@@ -7,11 +7,13 @@ import Landing_small from '../components/Landing/Landing_small'
 import CopperAdvantages from '../components/Advantages/Advantage'
 import TestimonialPage from '../components/Testimonial/TestimonialPage'
 import Why from '../components/WhyUs/Why'
+import About_small from '../components/About/About_small'
 const Home = () => {
   return (
     <div>
       <Landing_small />
       <Landing1 />
+      <About_small />
       <About />
       <CopperAdvantages />
       <Why />
