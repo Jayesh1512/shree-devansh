@@ -124,9 +124,18 @@ const Navbar = () => {
           </li>
           <li
             className="nav-list-ele mbView-Ele hover:text-white transition-all duration-300"
-            onClick={() => navigationHandler("/about")}
           >
-            About
+            <Link
+              activeClass="active"
+              to="about"
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+            >
+              {" "}
+              About
+            </Link>
           </li>
           <li
             className="nav-list-ele mbView-Ele hover:text-white transition-all duration-300"
