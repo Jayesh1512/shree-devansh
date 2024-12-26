@@ -1,3 +1,5 @@
+import { Element } from "react-scroll"
+
 const About_small = () => {
     return (
         <Element name="about">
